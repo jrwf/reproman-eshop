@@ -1,0 +1,43 @@
+parameters:
+    scanDirectories:
+        - app
+    level:
+        5
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Modules\Presenters\*Presenter
+		Admin: App\Modules\Admin\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+di:
+	export:
+		parameters: no
+		tags: no
+
+
+services:
+	- App\Router\RouterFactory::createRouter
+	- App\Model\EshopManager
+	- App\Modules\Admin\Model\OrderManager
+
+
+forms:
+	messages:
+		EMAIL: 'Zadejte platnou e-mailovou adresu.'
+		INTEGER: 'Zadejte platné celé číslo.'
+		FLOAT: 'Zadejte platné číslo.'
+
+security:
+	users:
+		reproman: reproman
+
+
+extensions:
+	gpwebpay: Pixidos\GPWebPay\DI\GPWebPayExtension
+

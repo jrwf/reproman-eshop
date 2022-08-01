@@ -1,0 +1,86 @@
+{block content}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Objednávka byla předána dopravci</title>
+    <style>
+        p {
+            font-size: 17px;
+            line-height: 150%;
+        }
+    </style>
+</head>
+<body>
+
+<div style="background-color: var(--color-silver); width: 100%; margin-bottom: 50px; padding: 15px 15px 15px 10px">
+    <h1 style="color: var(--color-pig-dark); font-size: 20px; margin-top: 0; line-height: 100%">ZM – TECH s.r.o.</h1>
+    <img src="logo.png" alt="Reproman" title="Reproman"
+         style="margin-bottom: 30px; display: inline-block"/>
+    <p style="margin-bottom: 0; color: var(--color-pig-dark);">DOPLNĚK STRAVY PRO MUŽE | Ověřené zvýšení plodnosti
+        a kvality sexuálního života</p>
+</div>
+
+<p>Dobrý den,</p>
+
+<p>Vaše objednávka číslo: {$objednavka->orderId}., produktu Reproman v balení
+    <strong>
+            {if $objednavka->product === 'one'}
+                na jeden měsíc za {$productPriceOne},- Kč
+            {elseif $objednavka->product === 'two'}
+                na tři měsíce za {$productPriceThree|number:0, '', ' '},- Kč
+            {elseif $objednavka->product === 'three'}
+                na šest měsíců za {$productPriceSix|number:0, '', ' '},- Kč
+            {/if}
+    </strong>
+byla předána dopravci<br />
+
+<strong>a bude odeslána do Vámi zvoleného výdejního místa na
+        adresu:</strong> {$objednavka->packetaPlace} {*$objednavka->contactStreet}, {$objednavka->contactCity}, {$objednavka->contactPsc*}
+</p>
+
+<p>V případě jakéhokoli dotazu nás můžete kontaktovat na naší e-mailové adrese: reproman@zm-tech.cz
+    <br/>a nebo nám můžte zavolat na telefonní číslo: +420 577 012 877.</p>
+
+<p>S pozdravem,</p>
+
+<p style="margin-top: 50px"><strong style="color: var(--color-pig-dark);">ZM – TECH s.r.o.</strong><br/>
+    PharmDr. <strong>Zuzana Kostovská</strong><br/>
+    U Lomu 638<br/>
+    760 01 Zlín</p>
+<p><strong>Telefon:</strong> +420 577 012 877<br/>
+    <strong>E-mail:</strong> reproman@zm-tech.cz</p>
+
+<h3 style="margin-top: 50px; margin-bottom: 5px">Otevírací doba:</h3>
+<table>
+    <tr>
+        <td><strong>Ponděli:</strong></td>
+        <td> 7:30-16:00 hodin</td>
+    </tr>
+    <tr>
+        <td><strong>Úterý:</strong></td>
+        <td> 7:30-16:00 hodin</td>
+    </tr>
+    <tr>
+        <td><strong>Středa:</strong></td>
+        <td> 7:30-16:00 hodin</td>
+    </tr>
+    <tr>
+        <td><strong>Čtvrtek:</strong></td>
+        <td> 7:30-16:00 hodin</td>
+    </tr>
+    <tr>
+        <td><strong>Pátek:</strong></td>
+        <td> 7:30-15:00 hodin</td>
+    </tr>
+    <tr>
+        <td><strong>Sobota:</strong></td>
+        <td>zavřeno</td>
+    </tr>
+    <tr>
+        <td><strong>Neděle:</strong></td>
+        <td>zavřeno</td>
+    </tr>
+</table>
+
+</body>
+</html>

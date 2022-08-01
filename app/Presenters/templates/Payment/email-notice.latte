@@ -1,0 +1,26 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Nová objednávka</title>
+    <style>
+        p {
+            font-size: 17px;
+            line-height: 150%;
+        }
+    </style>
+</head>
+<body>
+
+<p>Dobrý den,</p>
+
+<p>v e-shopu byla vytvořena nová objednávka od zákazníka:</p>
+
+<p>{$objednavka->name} {$objednavka->surname}<br />
+        <strong>E-mail:</strong> {$objednavka->email}<br />
+        <strong>Mobil:</strong> {$objednavka->phone}<br />
+</p>
+
+<p>Objednávka je na balení na {$objednavka->product} na adresu: <strong>{$objednavka->contactStreet}, {$objednavka->contactCity}, {$objednavka->contactPsc}</strong></p>
+
+</body>
+</html>

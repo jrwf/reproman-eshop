@@ -1,0 +1,340 @@
+{block title}Eshop{/block}
+{block description}Nejaky popis{/block}
+{block keywords}klicova slova{/block}
+{block h1}E-shop{/block}
+
+{block content}
+
+<style>
+    .packeta-logo {
+        max-width: 170px;
+    }
+
+    .packeta-logo img {
+        width: 100%;
+        height: auto;
+    }
+
+    .form-item .select-item select {
+        font-size: 16px;
+        height: 2.5rem;
+        border: 1px solid silver;
+        padding-left: 15px;
+        padding-right: 10px;
+        background-color: white;
+    }
+
+    #frm-eshopform .form-checkbox input {
+        font-size: 2rem;
+        border-radius: 50%;
+        width: 1.15em !important;
+        height: 1.15em;
+        margin-left: 5px;
+    }
+
+    .delivery-choice label {
+        display: flex;
+        width: auto;
+        align-items: center;
+    }
+
+    .agreement-item input[type="checkbox"] {
+        width: 1.8em;
+        height: 1.8em;
+        border: 0.15em solid currentColor;
+        border-radius: 0.15em;
+        transform: translateY(-0.075em);
+        position: relative;
+        left: 5px;
+    }
+
+    .delivery-choice input {
+        margin-right: 15px;
+        font-size: 2rem;
+        border-radius: 50%;
+        width: 1.15em !important;
+        height: 1.15em;
+    }
+
+    .billing-address-item {
+        margin-top: 30px;
+    }
+
+    .billing-address-item div {
+        position: relative;
+        left: -10px;
+    }
+
+    .delivery-choice div label {
+        margin-right: 25px;
+    }
+</style>
+
+{form eshopForm}
+{*    {if $form['product']->hasErrors()}<p style="font-size: 17px" class="class-error">Musíte si vybrat některou z těchto*}
+{*        tří variant.</p>{/if}*}
+    {if $form['product']->hasErrors()}<p  class="class-error">{inputError product}</p>{/if}
+    <div class="eshop-products">
+        <div class="eshop-product">
+            <p class="product-description">Balení na jeden měsíc</p>
+            <div class="eshop-product-in">
+                <input type="radio" name="product" onclick="getRadioValue()" id="frm-eshopForm-product-one"
+                        {if isset($order->product) && $order->product === 'one'}
+                            checked
+                        {/if}
+                       value="one" class="input-hidden">
+                <label for="frm-eshopForm-product-one">
+                    <img src="{$basePath}/images/1-baleni.jpg" alt="Jedno balení"/>
+                </label>
+            </div>
+            <div class="product-price">
+                <p class="product-price-number">{$productPriceOne},- Kč</p>
+                <p>Jedno balení na jeden měsíc.</p>
+                <h3>Doprava:</h3>
+                <h4>Česká Republika</h4>
+                <p>Zásilkovna "Na adresu"&nbsp;-&nbsp;<strong>110,-&nbsp;Kč</strong><br/>
+                    Zásilkovna na "Výdejní místo"&nbsp;-&nbsp;<strong>70,-&nbsp;Kč</strong></p>
+                <h4>Slovensko</h4>
+                <p>Zásilkovna "Na adresu"&nbsp;-&nbsp;<strong>120,-&nbsp;Kč</strong><br/>
+                    Zásilkovna na "Výdejní místo"&nbsp;-&nbsp;<strong>95,-&nbsp;Kč</strong></p>
+            </div>
+        </div>
+        <div class="eshop-product">
+            <p class="product-description">Balení na tři měsíce</p>
+            <div class="eshop-product-in">
+                <input type="radio" name="product" onclick="getRadioValue()" id="frm-eshopForm-product-two"
+                        {if isset($order->product)}
+                            {if $order->product === 'two'}
+                                checked
+                            {/if}
+                        {/if}
+                       value="two" class="input-hidden">
+                <label for="frm-eshopForm-product-two">
+                    <img src="{$basePath}/images/3-baleni.jpg" alt="Balení na tři měsíce."/>
+                </label>
+            </div>
+            <div class="product-price">
+                <p class="product-price-number">{$productPriceThree|number:0, '', ' '},-&nbsp;Kč</p>
+                <p>Tři balení na 3 měsíce.</p>
+                <h3>Doprava:</h3>
+                <p><strong>Doprava zdarma{*(na adresu nebo výdení místo)*}.</strong></p>
+            </div>
+        </div>
+        <div class="eshop-product">
+            <p class="product-description">Balení na šest měsíců</p>
+            <div class="eshop-product-in">
+                <input type="radio" name="product" onclick="getRadioValue()" id="frm-eshopForm-product-three"
+                        {if isset($order->product)}
+                            {if $order->product === 'three'}
+                                checked
+                            {/if}
+                        {/if}
+                       value="three" class="input-hidden">
+                <label for="frm-eshopForm-product-three">
+                    <img src="{$basePath}/images/6-baleni.jpg" alt="Balení na 6 měsíců."/>
+                </label>
+            </div>
+            <div class="product-price">
+                <p class="product-price-number">{$productPriceSix|number:0, '', ' '},-&nbsp;Kč</p>
+                <p>Šest balení na 6 měsíců <br/><strong class="product-price-free">(šestá krabička je zdarma)</strong>.
+                </p>
+                <h3>Doprava:</h3>
+                <p><strong>Doprava zdarma{*(na adresu nebo výdení místo)*}.</strong></p>
+            </div>
+        </div>
+        <div class="eshop-product">
+            <p class="product-description price">Celková cena</p>
+            <div class="eshop-product-in eshop-product-price">
+                <div class="result-view">
+                    <p>Cena:</p>
+                    {if isset($order->product)}
+                        <span id="result">
+                            {if $order->product === 'one'}
+                                {$productPriceOne},- Kč
+                            {elseif $order->product === 'two'}
+                                {$productPriceThree},- Kč
+                            {elseif $order->product === 'three'}
+                                {$productPriceSix},- Kč
+                            {/if}
+                        </span>
+                    {else}
+                        <span id="result">0,- Kč</span>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-text">
+        <p><a href="https://www.credit-card-logos.com/"><img alt="Credit Card Logos" title="Credit Card Logos"
+                                                             src="https://www.credit-card-logos.com/images/visa_credit-card-logos/visa_mastercard_logo_6.gif"
+                                                             width="102" height="32" border="0"/></a></p>
+        <div>
+            <p>Při objednávce v našem E-shopu je možnost úhrady produktu pouze <strong class="silver">online platební
+                    bránou</strong>, <strong class="silver">kartami Visa,
+                    Mastercard</strong> a platením tlačítkem <strong class="silver">PLATBA 24</strong>. Platba na
+                dobírku nebo na fakturu není možná.</p>
+            <p>Doprava vždy pouze Zásilkovnou (dodání druhý den pro podání zásilky).</p>
+        </div>
+    </div>
+
+    {*    {var $attrs = array(class => 'btn btn-primary')}*}
+    {*    {control webPayButton $attrs, 'text on button'}*}
+    <div class="order-contact-forms">
+        <div class="form-block">
+            <div class="order-contact">
+                <h3>Kontaktní údaje:</h3>
+                <div class="form-item">
+                    <span class="required">*</span>
+                    <p {if $form['name']->hasErrors()}class="class-error"{/if}>{input name placeholder: 'Jméno'}</p>
+                    <p {if $form['name']->hasErrors()}class="class-error"{/if}>{inputError name}</p>
+                </div>
+                <div class="form-item">
+                    <span class="required">*</span>
+                    <p {if $form['surname']->hasErrors()}class="class-error"{/if}>{input surname placeholder: 'Příjmení'}</p>
+                    <p {if $form['surname']->hasErrors()}class="class-error"{/if}>{inputError surname}</p>
+                </div>
+                <div class="form-item">
+                    <span class="required">*</span>
+                    <p {if $form['phone']->hasErrors()}class="class-error"{/if}>{input phone placeholder: 'Telefon'}</p>
+                    <p {if $form['phone']->hasErrors()}class="class-error"{/if}>{inputError phone}</p>
+                </div>
+                <div class="form-item">
+                    <span class="required">*</span>
+                    <p {if $form['email']->hasErrors()}class="class-error"{/if}>{input email placeholder: 'E-mail'}</p>
+                    <p {if $form['email']->hasErrors()}class="class-error"{/if}>{inputError email}</p>
+                </div>
+                <div class="form-item">
+                    <p {if $form['note']->hasErrors()}class="class-error"{/if}>{input note placeholder: 'Poznámka'}</p>
+                    <p {if $form['note']->hasErrors()}class="class-error"{/if}>{inputError note}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-block">
+            <div class="order-contact">
+                <h3>Doručovací údaje:</h3>
+                <div class="form-item">
+                    <span class="required">*</span>
+                    <p {if $form['contactStreet']->hasErrors()}class="class-error"{/if}>{input contactStreet placeholder: 'Ulice'}</p>
+                    <p {if $form['contactStreet']->hasErrors()}class="class-error"{/if}>{inputError contactStreet}</p>
+                </div>
+                <div class="form-item">
+                    <span class="required">*</span>
+                    <p {if $form['houseNumber']->hasErrors()}class="class-error"{/if}>{input houseNumber placeholder: 'č. p.'}</p>
+                    <p {if $form['houseNumber']->hasErrors()}class="class-error"{/if}>{inputError houseNumber}</p>
+                </div>
+                <div class="form-item">
+                    <span class="required">*</span>
+                    <p {if $form['contactCity']->hasErrors()}class="class-error"{/if}>{input contactCity placeholder: 'Město'}</p>
+                    <p {if $form['contactCity']->hasErrors()}class="class-error"{/if}>{inputError contactCity}</p>
+                </div>
+                <div class="form-item">
+                    <span class="required">*</span>
+                    <p {if $form['contactPsc']->hasErrors()}class="class-error"{/if}>{input contactPsc placeholder: 'PSČ'}</p>
+                    <p {if $form['contactPsc']->hasErrors()}class="class-error"{/if}>{inputError contactPsc}</p>
+                </div>
+                <div class="form-item">
+                    <span class="required">*</span>
+                    <div {if $form['state']->hasErrors()}class="class-error"{/if} class="select-item">{input state placeholder: 'Stát'}</div>
+                    <div {if $form['state']->hasErrors()}class="class-error"{/if}>{inputError state}</div>
+                </div>
+                <div class="form-item form-checkbox agreement-item billing-address-item">
+                    <div {if $form['billingAddress']->hasErrors()}class="class-error"{/if}>{input billingAddress}</div>
+                    <div {if $form['billingAddress']->hasErrors()}class="class-error"{/if}>{inputError billingAddress}</div>
+                </div>
+                <div class="form-item" id="billingStreet">
+                    <div {if $form['billingStreet']->hasErrors()}class="class-error"{/if}>{input billingStreet placeholder: 'Ulice'}</div>
+                    <div {if $form['billingStreet']->hasErrors()}class="class-error"{/if}>{inputError billingStreet}</div>
+                </div>
+                <div class="form-item" id="billingCity">
+                    <div {if $form['billingCity']->hasErrors()}class="class-error"{/if}>{input billingCity placeholder: 'Město'}</div>
+                    <div {if $form['billingCity']->hasErrors()}class="class-error"{/if}>{inputError billingCity}</div>
+                </div>
+                <div class="form-item" id="billingPsc">
+                    <div {if $form['billingPsc']->hasErrors()}class="class-error"{/if}>{input billingPsc placeholder: 'PSČ'}</div>
+                    <div {if $form['billingPsc']->hasErrors()}class="class-error"{/if}>{inputError billingPsc}</div>
+                </div>
+
+
+                <div id="packeta-to-dispensing-place-point">
+                    <h2>Způsob doručení</h2>
+                    <div class="packeta-logo"><img src="{$basePath}/images/zasilkovna.png" title="Zasilkovna"
+                                                   alt="Zasilkovna"/></div>
+                    <div class="form-item delivery-choice">
+                        <span class="required">*</span>
+                        <div {if $form['delivery']->hasErrors()}class="class-error"{/if} style="display: flex">{input delivery}</div>
+                        <div {if $form['delivery']->hasErrors()}class="class-error"{/if}>{inputError delivery}</div>
+                    </div>
+                    <div class="form-item" id="delivery-address">
+                        <p><strong>Zboží bude doručeno na zadanou adresu.</strong></p>
+                    </div>
+                    <div class="form-item packeta-item" id="delivery-place">
+                        <h3>Na výdejní místo:</h3>
+                        <div class="packeta-item-img-button">
+                            <input type="button" onclick="Packeta.Widget.pick(packetaApiKey, showSelectedPickupPoint)"
+                                   value="Výdejní místa" class="packeta-button">
+                        </div>
+                        <div id="packeta-to-address">packeta to address</div>
+                        <p><strong>Výdejní místo:</strong>
+                            {*                        <input type="hidden" name="packetaid" id="packeta-point-id" value="">*}
+                        {input packetaId}
+                        {input packetaPlace}
+                        {input packetaAttribute}
+                        {if !isset($order) || $order === null}
+                                <span id="packeta-point-info">nevybráno</span>
+                            {elseif isset($order->packetaPlace) && $order->packetaPlace !== ''}
+                                <span id="packeta-point-info">{$order->packetaPlace}</span>
+                            {/if}
+                        </p>
+                    </div>
+                </div>
+                {*
+                                <div class="form-item" id="billingPsc">
+                                    {input billingPsc placeholder: billingPsc} <p
+                                            {if $form['billingPsc']->hasErrors()}class="class-error"{/if}>{inputError billingPsc}</p>
+                                </div>
+                *}
+                <div class="form-item form-checkbox agreement-item">
+                    <span class="required">*</span>
+                    <div {if $form['agreement']->hasErrors()}class="class-error"{/if}>{input agreement}</div>
+                    <div {if $form['agreement']->hasErrors()}class="class-error"{/if}>{inputError agreement}</div>
+                </div>
+                <div class="form-item">
+                    {input save}
+                </div>
+            </div>
+        </div>
+    </div>
+{/form}
+
+<script>
+    function getRadioValue() {
+        var radio = document.querySelectorAll('input[name="product"]');
+        console.log(radio + ' volba radia');
+        // var radio = document.getElementsByName('car');
+        for (i = 0; i < radio.length; i++) {
+            if (radio[i].checked)
+                // alert(radio[i].value);
+                if (radio[i].value == 'one') {
+                    document.getElementById('result').innerText = {$productPriceOne} +',- Kč';
+                    // document.getElementById('packeta-to-address').classList.add('packeta-display-yes');
+                    // document.getElementById('packeta-to-dispensing-place-point').classList.remove('packeta-display-yes');
+                    document.getElementById('packeta-to-dispensing-place-point').classList.add('packeta-display-yes');
+                    console.log(radio[i].value + ' volba 1');
+                } else if (radio[i].value == 'two') {
+                    document.getElementById('result').innerText = {$productPriceThree|number:0, '', ' '} +',- Kč';
+                    document.getElementById('packeta-to-address').classList.remove('packeta-display-yes');
+                    document.getElementById('packeta-to-dispensing-place-point').classList.add('packeta-display-yes');
+                    console.log(radio[i].value + ' volba 2');
+                } else if (radio[i].value == 'three') {
+                    document.getElementById('result').innerText = {$productPriceSix|number:0, '', ' '} +',- Kč';
+                    document.getElementById('packeta-to-address').classList.remove('packeta-display-yes');
+                    document.getElementById('packeta-to-dispensing-place-point').classList.add('packeta-display-yes');
+                    console.log(radio[i].value + ' volba 3');
+                }
+            // document.getElementById('result').innerText = radio[i].value;
+        }
+    }
+</script>
+

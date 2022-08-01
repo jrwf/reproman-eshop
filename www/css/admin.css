@@ -1,0 +1,189 @@
+body {
+}
+
+header {
+    height: 40px !important;
+    background-color: #b9d098;
+    padding: 20px 0;
+    margin-bottom: 40px;
+}
+
+header .header-admin.topnav {
+    max-width: 1700px;
+    margin-left: 45px;
+    justify-content: space-between;
+}
+
+.header-admin-nav {
+    width: 500px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+
+header .topnav .logo {
+    margin-right: 50px;
+}
+
+.page {
+    flex-direction: row;
+    padding-bottom: 100px;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+table {
+    width: 100%;
+}
+
+table#orders th {
+    padding-left: 0;
+    padding-right: 25px;
+}
+
+table td {
+    font-size: 13px;
+    font-family: arial, sans-serif;
+    vertical-align: top;
+    padding: 9px !important;
+    color: #383838;
+}
+
+table select {
+    padding: 5px 10px;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+table td a {
+    color: black;
+}
+
+td.column-id {
+    width: 30px !important;
+    text-align: right !important;
+}
+
+td.column-invoice {
+    width: 100px;
+    text-align: right;
+}
+
+td.column-created {
+    width: 80px;
+    text-align: right;
+}
+
+td.column-time {
+    text-align: right;
+}
+
+td.column-customer {
+    width: auto;
+}
+
+td.column-phone {
+    width: 120px;
+}
+
+td.column-email {
+    width: 140px;
+}
+
+td.column-product {
+    max-width: 160px !important;
+    text-align: right;
+}
+
+td.column-status {
+    width: 150px !important;
+}
+
+td.column-delete,
+td.column-edit {
+    width: 50px;
+    text-align: center;
+    margin: 0 !important;
+    padding: 0 !important;
+    vertical-align: inherit;
+}
+
+td.column-delete {
+    width: 45px !important;
+}
+
+td.column-delete a,
+td.column-edit a {
+    display: block;
+    height: auto;
+    line-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+td.column-edit a span {
+    color: #3b3b3b;
+    font-size: 20px !important;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+td.column-edit a:hover {
+    color: black;
+}
+
+td.column-delete a span {
+    color: red;
+    height: auto;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.order-edit {
+    float: right;
+}
+
+.order-edit:hover {
+    background-color: var(--color-green-middle);
+    color: white;
+}
+
+.status-0 {
+    color: #2d4156;
+}
+
+.status-1 {
+    color: darkorange;
+    font-weight: bold;
+}
+
+.status-2 {
+    color: var(--color-green-middle);
+}
+
+.status-3 {
+    color: silver;
+}
+
+.status-4 {
+    color: red;
+}
+
+.status-3-title {
+    margin-left: 50px;
+    display: inline-block;
+}
+
+table tr.status-3 td,
+table tr.status-3 td strong,
+table tr.status-3 td a {
+    color: silver !important;
+}
+
+table tr.status-3 td.status-3 {
+    color: silver !important;
+}

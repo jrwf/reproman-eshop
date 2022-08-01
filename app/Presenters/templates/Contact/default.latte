@@ -1,0 +1,76 @@
+{block title}Kontakt{/block}
+{block description}Nejaky popis{/block}
+{block keywords}klicova slova{/block}
+{block h1}Kontakt{/block}
+
+{block content}
+
+<div class="contact-images"></div>
+
+<div class="main-sides-blocks contact">
+    <div class="main-blocks address-open">
+        <div class="address">
+            <h3>ZM – TECH s.r.o.</h3>
+            <p><strong>PharmDr. Zuzana Kostovská</strong><br/>
+                U Lomu 638<br/>
+                760 01 Zlín</p>
+
+            <p><strong>Telefon:</strong> +420 577 012 877<br/>
+                <strong>E-mail:</strong> reproman@zm-tech.cz</p>
+        </div>
+        <div class="open">
+            <h3>Otevírací doba:</h3>
+            <table>
+                <tr>
+                    <td><strong>Ponděli:</strong></td>
+                    <td> 7:30-16:00 hodin</td>
+                </tr>
+                <tr>
+                    <td><strong>Úterý:</strong></td>
+                    <td> 7:30-16:00 hodin</td>
+                </tr>
+                <tr>
+                    <td><strong>Středa:</strong></td>
+                    <td> 7:30-16:00 hodin</td>
+                </tr>
+                <tr>
+                    <td><strong>Čtvrtek:</strong></td>
+                    <td> 7:30-16:00 hodin</td>
+                </tr>
+                <tr>
+                    <td><strong>Pátek:</strong></td>
+                    <td> 7:30-15:00 hodin</td>
+                </tr>
+                <tr>
+                    <td><strong>Sobota:</strong></td>
+                    <td>zavřeno</td>
+                </tr>
+                <tr>
+                    <td><strong>Neděle:</strong></td>
+                    <td>zavřeno</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="main-blocks">
+        {*        {control contactForm}*}
+        {form contactForm}
+            <div class="form-item">
+                {input name placeholder => 'Vaše jméno'}
+            </div>
+            <div class="form-item">
+                {input phone placeholder => 'Telefon'}
+            </div>
+            <div class="form-item">
+                {input email placeholder => 'E-mail'}
+            </div>
+            <div class="form-item">
+                {input message placeholder => 'Text'}
+            </div>
+            <div class="form-item">
+                {input save}
+            </div>
+        {/form}
+    </div>
+</div>
+

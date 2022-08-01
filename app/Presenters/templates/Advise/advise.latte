@@ -1,0 +1,32 @@
+{block title}Advise{/block}
+{block description}Nejaky popis{/block}
+{block keywords}klicova slova{/block}
+{block h1}Advise{/block}
+
+{block content}
+
+<div class="main-teaser">
+    <p><strong>Our specialists will answer all your questions on male infertility or provide advice to specific issues. Fill the form below and press Send. Your question is completely confidential.</strong></p>
+</div>
+
+<div class="main-sides-blocks">
+    <div class="main-blocks">
+        <h2> Who is the product intended for?</h2>
+        <ul>
+            <li>Men who want to have offspring with their partner, but have impaired or reduced fertility.</li>
+            <li>Men who want to improve or maintain their sex life.</li>
+            <li>Men who want to increase their sex drive for pleasure.</li>
+        </ul>
+    </div>
+    <div class="main-blocks">
+        {* {control adviceForm}*}
+        {form adviceForm}
+            <div class="form-item">{input name placeholder: 'Your name'}</div>
+            <div class="form-item">{input email placeholder: 'E-mail'}</div>
+            <div class="form-item">{input question rows => 10}</div>
+            <div class="form-item">
+                {input save}
+            </div>
+        {/form}
+    </div>
+</div>

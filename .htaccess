@@ -1,0 +1,14 @@
+Require all denied
+
+#CSP
+# @TODO - Nastavit CSP
+#Header set Content-Security-Policy "script-src 'self' https://reproman.jw.cz https://www.reproman.jw.cz; object-src 'self'"
+#Header set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+#Header set X-Content-Type-Options "nosniff"
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	RewriteCond %{HTTPS} !on
+	RewriteRule .? https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>

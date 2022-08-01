@@ -1,0 +1,9 @@
+tmp/
+vendor/
+.idea/
+/coverage.xml
+/.phpcs-cache
+/coverage.xml
+composer.lock
+**/output
+docs/_build

@@ -1,0 +1,13 @@
+/config/secret.neon
+/config/local.neon
+/config/staging.neon
+
+/.data/
+/temp/
+/log/
+
+/.idea/
+
+/reproman.csr
+/reproman.key
+/www/keys/production/

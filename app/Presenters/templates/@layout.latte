@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{ifset title}{include title|stripHtml} | {/ifset}ZM – TECH s. r. o.</title>
+    {ifset description}<meta name="description" content="{include description}">{/ifset}
+	{ifset keywords}<meta name="keywords" content="{include keywords}">{/ifset}
+
+    <!-- Open Graph / Facebook -->
+    {ifset title}<meta property="og:title" content="{include title}">{/ifset}
+    {ifset description}<meta property="og:description" content="{include description}">{/ifset}
+    <meta property="og:image" content="{$baseUrl}/images/opengraph.jpg">
+    <meta property="og:url" content="{$baseUrl}{link this}">
+    <meta property="og:site_name" content="ZM – TECH s. r. o. | Reproman - doplněk stravy pro muže">
+    <meta property="og:type" content="product">
+    <!-- Open Graph / Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{$baseUrl}{link this}">
+    <meta property="twitter:title" content="{ifset title}{include title|stripHtml} | {/ifset}ZM – TECH s. r. o.">
+    {ifset description}<meta property="twitter:description" content="{include description}">{/ifset}
+    <meta property="twitter:image" content="{$baseUrl}/images/opengraph.jpg">
+    <link rel="stylesheet" media="screen" href="{$baseUrl}/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{$baseUrl}/scripts/jquery-3.6.0.min.js" type="text/javascript"></script>
+    {*Google Fonts*}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/scripts/responsiveslides.min.js" type="text/javascript"></script>
+    <script src="https://widget.packeta.com/v6/www/js/library.js"></script>
+    <script>
+        var packetaApiKey = {$packetaApiKey};
+        /*
+        	This function will receive either a pickup point object, or null if the user
+        	did not select anything, e.g. if they used the close icon in top-right corner
+        	of the widget, or if they pressed the escape key.
+        */
+        function showSelectedPickupPoint(point) {
+            var spanElement = document.getElementById('packeta-point-info');
+            var idElement = document.getElementById('packeta-point-id');
+            var packetaPlace = document.getElementById('packeta-place');
+            var packetaAttribute = document.getElementById('packeta-attribute');
+            if (point) {
+                var recursiveToString = function(o) {
+                    return Object.keys(o).map(
+                        function(k) {
+                            if (o[k] === null) {
+                                return k + " = null";
+                            }
+
+                            return k + " = " + (typeof(o[k]) == "object" ?
+                                "<ul><li>" + recursiveToString(o[k]) + "</li></ul>" :
+                                o[k].toString().replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                            );
+                        }
+                    ).join("</li><li>");
+                };
+
+                spanElement.innerText =
+                    "" + point.name + point.zip + " " + point.city + "\n\n" ;
+                    // "Address: " + point.name + "\n" + point.zip + " " + point.city + "\n\n" ;
+                    // + "All available fields:\n";
+                packetaAttribute.value = point.country;
+
+                // spanElement.innerHTML +=
+                //     "<ul><li>" + recursiveToString(point) + "</li></ul>";
+
+                packetaPlace.value = point.name + ' ' + point.zip;
+                idElement.value = point.id;
+                console.log(point.name);
+                // console.log(point.country);
+            } else {
+                spanElement.innerText = "None";
+                idElement.value = "";
+            }
+        };
+    </script>
+</head>
+
+<body {if $presenter->name !== 'Homepage'}class="pages"{/if}>
+<script src="{$baseUrl}/scripts/cookieconsent.js" type="text/javascript"></script>
+<script src="{$baseUrl}/scripts/cookieconsent-init.js" type="text/javascript"></script>
+<div class="page">
+    <header>
+        <nav>
+            <div class="brand">
+                <a n:href="Homepage:default" class="logo">
+                    <img src="{$baseUrl}/images/logo.png" width="" height="" title="" alt=""/>
+                </a>
+            </div>
+            <div class="topnav" id="myTopnav">
+                {* Home *}
+                {if $lang === 'cz'}
+                    <a n:href="Homepage:default" n:class="$presenter->isLinkCurrent() ? active">Hlavní strana</a>
+                {else}
+                    <a n:href="Homepage:home" n:class="$presenter->isLinkCurrent() ? active">Home</a>
+                {/if}
+
+                {* Složky přípravku *}
+                {if $lang === 'cz'}
+                    <a n:href="Composition:default" n:class="$presenter->isLinkCurrent() ? active">Složky&nbsp;přípravku</a>
+                {else}
+                    <a n:href="Composition:components" n:class="$presenter->isLinkCurrent() ? active">Composition</a>
+                {/if}
+
+                {* Mužská neplodnost *}
+                {if $lang === 'cz'}
+                    <a n:href="Infertility:default" n:class="$presenter->isLinkCurrent() ? active">Mužská&nbsp;neplodnost</a>
+                {else}
+                    <a n:href="Infertility:infertility" n:class="$presenter->isLinkCurrent() ? active">Interfility</a>
+                {/if}
+
+                {* Výzkum *}
+                {if $lang === 'cz'}
+                    <a n:href="Research:default" n:class="$presenter->isLinkCurrent() ? active">Výzkum</a>
+                {else}
+                    <a n:href="Research:research" n:class="$presenter->isLinkCurrent() ? active">Research</a>
+                {/if}
+
+                {* Poradímei Vám *}
+                {if $lang === 'cz'}
+                    <a n:href="Advise:default" n:class="$presenter->isLinkCurrent() ? active">Poradíme&nbsp;Vám</a>
+                {else}
+                    <a n:href="Advise:advise" n:class="$presenter->isLinkCurrent() ? active">Advise</a>
+                {/if}
+
+                {* E-shop *}
+                {if $lang === 'cz'}
+                    <a n:href="Eshop:default" n:class="$presenter->isLinkCurrent() ? active">E-shop</a>
+                {/if}
+
+                {if $lang === 'cz'}
+                    <a n:href="Contact:default" n:class="$presenter->isLinkCurrent() ? active">Kontakt</a>
+                {else}
+                    <a n:href="Contact:contact" n:class="$presenter->isLinkCurrent() ? active">Contact</a>
+                {/if}
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            {if $presenter->name !== 'Eshop'}
+                <div class="lang">
+                    {* Hlavni strana *}
+                {if $presenter->name === 'Homepage' && $presenter->action === 'default'}
+                        <a n:href="Homepage:home"><span class="material-icons">language</span>en</a>
+                    {elseif $presenter->name === 'Homepage' && $presenter->action === 'home'}
+                        <a n:href="Homepage:default"><span class="material-icons">language</span>cz</a>
+                        {* Složení přípravku *}
+                    {elseif $presenter->name === 'Composition' && $presenter->action === 'default'}
+                        <a n:href="Composition:components"><span class="material-icons">language</span>en</a>
+                    {elseif $presenter->name === 'Composition' && $presenter->action === 'components'}
+                        <a n:href="Composition:default"><span class="material-icons">language</span>cz</a>
+                        {* Mužská neplodnost *}
+                    {elseif $presenter->name === 'Infertility' && $presenter->action === 'default'}
+                        <a n:href="Infertility:infertility"><span class="material-icons">language</span>en</a>
+                    {elseif $presenter->name === 'Infertility' && $presenter->action === 'infertility'}
+                        <a n:href="Infertility:default"><span class="material-icons">language</span>cz</a>
+                        {* Výzkum *}
+                    {elseif $presenter->name === 'Research' && $presenter->action === 'default'}
+                        <a n:href="Research:research"><span class="material-icons">language</span>en</a>
+                    {elseif $presenter->name === 'Research' && $presenter->action === 'research'}
+                        <a n:href="Research:default"><span class="material-icons">language</span>cz</a>
+                        {* Poradime vám *}
+                    {elseif $presenter->name === 'Advise' && $presenter->action === 'default'}
+                        <a n:href="Advise:advise"><span class="material-icons">language</span>en</a>
+                    {elseif $presenter->name === 'Advise' && $presenter->action === 'advise'}
+                        <a n:href="Advise:default"><span class="material-icons">language</span>cz</a>
+                        {* Kontakt *}
+                    {elseif $presenter->name === 'Contact' && $presenter->action === 'default'}
+                        <a n:href="Contact:contact"><span class="material-icons">language</span>en</a>
+                    {elseif $presenter->name === 'Contact' && $presenter->action === 'contact'}
+                        <a n:href="Contact:default"><span class="material-icons">language</span>cz</a>
+                    {/if}
+                </div>
+            {/if}
+        </nav>
+
+        <div class="title-block {if $presenter->name === 'Homepage'} homepage{/if}">
+            <div class="title-block-in">
+
+                {if $presenter->name === 'Homepage'}
+                    {* TODO - Překlady slideshow *}
+                    <div class="homepage-slider">
+                        <div class="homepage-slider-in">
+                            <div class="rslides">
+                                <div class="homepage-slider-text">
+                                    {if $lang === 'cz'}
+                                        <h2>Doplněk stravy pro muže</h2>
+                                        <h3>Ověřené zvýšení plodnosti a kvality sexuálního života</h3>
+                                        <p>REPROMAN® je jedinečný přípravek, který vyvinuli přední specialisté v oboru
+                                            reprodukční medicíny na základě svých dlouholetých znalostí, zkušeností a
+                                            světově uznávaných odborných studií.</p>
+                                        <a n:href="Eshop:default" class="homepage-slider-buy">Koupit on-line</a>
+                                        <p class="homepage-slider-info"><strong>Dávkování:</strong><br/>
+                                            2krát denně 1 kapsle (ráno a večer), polykat, nekousat.<br />
+                                            Doporučené dávkování se nesmí překračovat.</p>
+                                    {elseif $lang === 'en'}
+                                        <h2>Dietary supplement for men</h2>
+                                        <h3>Capsules with vitamins, minerals and plant extracts.</h3>
+                                        <p>REPROMAN® is a unique product developed by leading specialists in the
+                                            reproductive medicine discipline based on their long-time knowledge,
+                                            experience and worldwide recognised professional studies.</p>
+                                    {/if}
+                                </div>
+                                <div class="homepage-slider-text">
+                                    {if $lang === 'cz'}
+                                        <h2>Kapsle s vitamíny, minerály a rostlinými extrakty</h2>
+                                        <h3>REPROMAN® je jedinečný přípravek, který vyvinuli přední specialisté v oboru
+                                            reprodukční medicíny na základě svých dlouholetých znalostí</h3>
+                                        <p>REPROMAN® je jedinečný přípravek, který vyvinuli přední specialisté v oboru
+                                            reprodukční medicíny na základě svých dlouholetých znalostí, zkušeností a
+                                            světově uznávaných odborných studií.</p>
+                                        <a n:href="Eshop:default" class="homepage-slider-buy">Koupit on-line</a>
+                                        <p class="homepage-slider-info"><strong>Dávkování:</strong><br/>
+                                            2krát denně 1 kapsle (ráno a večer), polykat, nekousat.<br />
+                                            Doporučené dávkování se nesmí překračovat.</p>
+                                    {elseif $lang === 'en'}
+                                        <h2>Dietary supplement for men</h2>
+                                        <h3>Proven increase in fertility and quality of sex life</h3>
+                                        <p>REPROMAN® is a unique product developed by leading specialists in the
+                                            reproductive medicine discipline based on their long-time knowledge,
+                                            experience and worldwide recognised professional studies.</p>
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="homepage-blocks">
+                        <div class="homepage-block">
+
+                            {* Složení přípravku *}
+                            {if $lang === 'cz'}
+                                <a n:href="Composition:default"><img src="/images/homepage-block-1.png" title="" alt=""
+                                                                     width=""/></a>
+                                <h2><a n:href="Composition:default">Složení přípravku</a></h2>
+                                <p>obsahuje unikátní kombinaci přírodních složek a látek, které mají pozitivní vliv na
+                                    sexuální zdraví mužů a jejich plodnost.</p>
+                                <a n:href="Composition:default" class="homepage-block-more">Více &#8594;</a>
+                            {elseif $lang === 'en'}
+                                <a n:href="Composition:default">
+                                    <img src="/images/homepage-block-1.png" title="" alt="" width=""/>
+                                </a>
+                                <h2><a n:href="Composition:default">Product composition</a></h2>
+                                <p>the product contains a unique combination of natural ingredients and substances with
+                                    positive effects on male sexual health and fertility.</p>
+                                <a n:href="Composition:default" class="homepage-block-more">More &#8594;</a>
+                            {/if}
+
+                        </div>
+                        <div class="homepage-block">
+                            {if $lang === 'cz'}
+                                <a n:href="Infertility:default"><img src="/images/homepage-block-2.png" title="" alt=""
+                                                                     width=""/></a>
+                                <h2><a n:href="Infertility:default">Mužská neplodnost</a></h2>
+                                <p>se stále větším procentem podílí na potížích s početím dítěte, mezi hlavní příčiny se
+                                    řadí životní prostředí, chemická zátěž a stres.</p>
+                                <a n:href="Infertility:default" class="homepage-block-more">Více &#8594;</a>
+                            {elseif $lang === 'en'}
+                                <a n:href="Infertility:default"><img src="/images/homepage-block-2.png" title="" alt=""
+                                                                     width=""/></a>
+                                <h2><a n:href="Infertility:default">Male infertility</a></h2>
+                                <p>with an increasing percentage of problems with conceiving a child, the main causes
+                                    are the environment, chemical and mental stress.</p>
+                                <a n:href="Infertility:default" class="homepage-block-more">More &#8594;</a>
+                            {/if}
+                        </div>
+                        <div class="homepage-block">
+                            {if $lang === 'cz'}
+                                <a n:href="Research:default"><img src="/images/homepage-block-3.png" title="" alt=""
+                                                                  width=""/></a>
+                                <h2><a n:href="Research:default">Odborný výzkum</a></h2>
+                                <p>Reproman byl vyvinut na základě dlouhodobých zkušeností odborníků na neplodnost a
+                                    jeho účinnost je ověřována.</p>
+                                <a n:href="Research:default" class="homepage-block-more">Více &#8594;</a>
+                            {elseif $lang === 'en'}
+                                <a n:href="Research:default"><img src="/images/homepage-block-3.png" title="" alt=""
+                                                                  width=""/></a>
+                                <h2><a n:href="Research:default">Specialised research</a></h2>
+                                <p>Reproman was developed based on long-term experience of infertility experts and its
+                                    effectiveness is being verified.</p>
+                                <a n:href="Research:default" class="homepage-block-more">More &#8594;</a>
+                            {/if}
+                        </div>
+                        <div class="homepage-block">
+                            {if $lang === 'cz'}
+                                <a n:href="Advise:default"><img src="/images/homepage-block-4.png" title="" alt=""
+                                                                width=""/></a>
+                                <h2><a n:href="Advise:default">Poradíme Vám</a></h2>
+                                <p>Diskrétně Vám zodpovíme jakýkoli dotaz z oblasti mužské neplodnosti a pomůžeme Vám s
+                                    řešením Vašich potíží.</p>
+                                <a n:href="Advise:default" class="homepage-block-more">Více &#8594;</a>
+                            {elseif $lang === 'en'}
+                                <a n:href="Advise:default"><img src="/images/homepage-block-4.png" title="" alt=""
+                                                                width=""/></a>
+                                <h2><a n:href="Advise:default">We will advise you</a></h2>
+                                <p>We will discreetly answer any question related to male infertility and help you solve
+                                    your problems.</p>
+                                <a n:href="Advise:default" class="homepage-block-more">More &#8594;</a>
+                            {/if}
+                        </div>
+                    </div>
+
+                {else}
+                    <h1>{include h1}</h1>
+                {/if}
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="content-in">
+            <main {if $presenter->name === 'Contact'}class="contact-page"{/if}>
+                <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+                {include content}
+            </main>
+        </div>
+    </div>
+
+    {if $presenter->name === 'Homepage'}
+        <div class="content homepage-lists-block">
+            <div class="content-in">
+                <main>
+                    <div class="homepage-lists">
+                        <div class="homepage-list homepage-list-why">
+                            {if $lang === 'cz'}
+                                <h2>Proč REPROMAN®?</h2>
+                                <ul>
+                                    <li>Každá kapsle obsahuje vysoké množství osvědčených účinných látek, které
+                                        prokazatelně zlepšují spermatogenezi (tvorbu mužských pohlavních buněk spermií) a kvalitu spermatu.
+                                    </li>
+                                    <li>Vybrané složky příznivě působí na sexuální život mužů – zlepšení potence a
+                                        zvýšení chutě na sex.
+                                    </li>
+                                    <li>Zlepšuje kondici a imunitu organismu.</li>
+                                    <li>Zvyšuje odolnost proti únavě.</li>
+                                    <li>Působí jako antioxidant.</li>
+                                    <li>Zlepšuje mentální koncentraci.</li>
+                                </ul>
+                            {elseif $lang === 'en'}
+                                <h2>Why REPROMAN®?</h2>
+                                <ul>
+                                    <li>Each capsule contains a high amount of proven active ingredients with positive
+                                        effects on spermatogenesis (production of male sperm germ cells) and sperm
+                                        quality.
+                                    </li>
+                                    <li>Selected ingredients have positive effects on male sexual health – they improve
+                                        potency and increase sex drive.
+                                    </li>
+                                    <li>It improves the condition and immunity of the human body.</li>
+                                    <li>It increases fatigue resistance.</li>
+                                    <li>It acts as an antioxidant.</li>
+                                    <li>It improves mental concentration.</li>
+                                </ul>
+                            {/if}
+                        </div>
+
+                        <div class="homepage-list homepage-list-who">
+                            {if $lang === 'cz'}
+                                <h2>Komu je přípravek určen?</h2>
+                                <ul>
+                                    <li>Mužům, kteří s partnerkou touží zplodit potomka, avšak jejich plodnost je
+                                        zhoršená
+                                        nebo snížená.
+                                    </li>
+                                    <li>Mužům, kteří chtějí zlepšit nebo udržet svůj sexuální život.</li>
+                                    <li>Mužům, kteří chtějí zvýšit svou pohlavní touhu směřující k dosažení slasti.</li>
+                                </ul>
+                            {elseif $lang === 'en'}
+                                <h2>Who is the product intended for?</h2>
+                                <ul>
+                                    <li>Men who want to have offspring with their partner, but have impaired or reduced fertility.</li>
+                                    <li>Men who want to improve or maintain their sex life.</li>
+                                    <li>Men who want to increase their sex drive for pleasure.</li>
+                                </ul>
+                            {/if}
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    {/if}
+
+        {if $presenter->name === 'Contact'}
+        <div class="cz-map">
+            <div class="map-responsive">
+                <iframe style="border:none" src="https://frame.mapy.cz/s/mozegazumu" width="800" height="600"></iframe>
+            </div>
+        </div>
+    {/if}
+
+    <footer>
+        <div class="footer-in">
+
+            <div class="footer-block help">
+                {if $lang === 'cz'}
+                <h3>Potřebujete odbornou pomoc?</h3>
+                <p>Klinika reprodukční medicíny a gynekologie Zlín již více než 10 let poskytuje komplexní služby v
+                    oblasti asistované reprodukce, gynekologie, andrologie a embryologie. Vzhledem k široké škále
+                    používaných metod, dlouhodobým zkušenostem a týmu špičkových IVF specialistů pomáhá klinika k
+                    vytouženému dítěti i párům, jejichž situace se zdá být beznadějná.</p>
+                <img src="/images/logo-ivf.png" title="Klinika reprodukční medicíny a gynekologie Zlín"
+                     alt="Klinika reprodukční medicíny a gynekologie Zlín - logo">
+                {elseif $lang === 'en'}
+                    <h3>Do you need professional help?</h3>
+                    <p>Reproductive Medicine and Gynaecology Centre Zlín has been providing comprehensive services in assisted reproduction, gynaecology, andrology and embryology for more than 10 years. Thanks to the wide range of the implemented methods, long-term experience and a team of top IVF specialists, the Centre helps people conceive their long desired child, even couples whose situation seems hopeless.</p>
+                    <img src="/images/logo-ivf.png" title="Reproductive Medicine and Gynaecology Centre Zlín"
+                         alt="Reproductive Medicine and Gynaecology Centre Zlín - logo">
+                {/if}
+            </div>
+
+            {*
+                        <div class="footer-block">
+                            <h3>O webu</h3>
+                            <ul>
+                                <li><a href="{$basePath}/files/zpracovani-a-ochrana-osobnich-udaju.pdf">Zpracování osobních údajů</a></li>
+                                <li><a href="#">Prohlášení o přístupnosti</a></li>
+                                <li><a href="#">Mapa webu</a></li>
+                            </ul>
+                        </div>
+            *}
+
+            <div class="footer-block footer-projects">
+                {if $lang === 'cz'}
+                <h3>Naše projekty</h3>
+                <ul>
+                    <li><a href="https://www.ivf-zlin.cz/">Klinika reprodukční medicíny Zlín</a>
+                    </li>
+                    {* TODO - Zobrazit? Doplnit odkaz. *}
+{*                    <li><a href="#">IVF Travel</a></li>*}
+                    <li><a href="https://www.hotel-tomasov.cz/">Hotel Tomášov</a></li>
+                    <li><a href="https://www.darovatvajicka.cz/">DarovatVajicka.cz</a></li>
+                    <li><a href="https://www.ivf-zlin.cz/lekarna-tomasov">Lékárna Tomášov</a></li>
+                </ul>
+                {elseif $lang === 'en'}
+                    <h3>Our projects</h3>
+                    <ul>
+                        <li><a href="https://www.ivf-zlin.cz/">Reproductive Medicine and Gynaecology Centre Zlín</a></li>
+                        {* TODO - Doplnit odkaz. *}
+{*                        <li><a href="#">IVF Travel</a></li>*}
+                        <li><a href="https://www.hotel-tomasov.cz/">Hotel Tomášov</a></li>
+                        <li><a href="https://www.darovatvajicka.cz/">DarovatVajicka.cz</a></li>
+                        <li><a href="https://www.ivf-zlin.cz/lekarna-tomasov">Pharmacy Tomášov</a></li>
+                    </ul>
+                {/if}
+            </div>
+
+            <div class="footer-block contact-block">
+                <p class="address-block"><strong>ZM – TECH s.r.o.</strong><br/>
+                    PharmDr. Zuzana Kostovská<br/>
+                    U Lomu 638<br/>
+                    760 01 Zlín</p>
+
+                <p class="phone-email"><strong>Telefon: +420 577 012 877</strong><br/>
+                    <span>E-mail:</span> reproman@zm-tech.cz</p>
+
+                <ul>
+                    <li><a href="/files/zpracovani-a-ochrana-osobnich-udaju-2022-03-24.pdf">Zpracování a ochrana
+                            osobních údajů</a></li>
+                    <li><a href="/files/vseobecne-obchodni-podminky-eshop-reproman-cz.pdf">Všeobecné obchodní podmínky</a></li>
+                </ul>
+
+                <p class="footer-media">Sledujte nás na:
+                    {* TODO - Doplnit odkazy na facebook a youtube. *}
+                    <a href="#" class="footer-media-youtube"><img src="/images/icon-youtube.png" title=""
+                                                                  alt=""/></a>
+                    <a href="#" class="footer-media-facebook"><img src="/images/icon-facebook.png" title=""
+                                                                   alt=""/></a>
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+</div>
+
+{block scripts}
+    <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+
+        $(function () {
+            $(".rslides").responsiveSlides({
+                auto: true,             // Boolean: Animate automatically, true or false
+                speed: 2000,            // Integer: Speed of the transition, in milliseconds
+                timeout: 4000,          // Integer: Time between slide transitions, in milliseconds
+                pager: false,           // Boolean: Show pager, true or false
+                nav: false,             // Boolean: Show navigation, true or false
+                random: false,          // Boolean: Randomize the order of the slides, true or false
+                pause: false,           // Boolean: Pause on hover, true or false
+                pauseControls: true,    // Boolean: Pause when hovering controls, true or false
+                prevText: "Previous",   // String: Text for the "previous" button
+                nextText: "Next",
+            });
+        });
+    </script>
+{/block}
+</body>
+</html>

@@ -1,0 +1,176 @@
+{block content}
+
+<style>
+    .page-in {
+        max-width: 1700px;
+    }
+</style>
+
+<h1>Přehled objednávek</h1>
+
+<table id="orders" class="cell-border compact stripe display hover">
+    <thead>
+    <tr>
+        <th class="column-id">Id:</th>
+        <th class="column-invoice">GpId:</th>
+        <th class="column-invoice">Faktura:</th>
+        <th class="column-created">Vytvořeno:</th>
+        <th class="column-time">Hod.:</th>
+        <th class="column-created">Měsíc:</th>
+        <th class="column-customer">Zákazník:</th>
+        <th class="">Město:</th>
+        <th>Telefon:</th>
+        <th>E-mail:</th>
+        <th class="column-product">Produkt:</th>
+        <th class="column-status" style="width: 170px">Stav:</th>
+        <th class="column-edit"></th>
+        <th class="column-delete"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {if isset($orders)}
+    <tr n:foreach="$orders as $order" {if $order->status === 3}class="status-3"{/if}>
+        <td class="column-id">{$order->orderId}.</td>
+        <td class="column-created">{$order->orderIdGp}</td>
+        <td class="column-invoice"><a n:href="Dashboard:detail $order->orderId">{$order['created']|date:'%y'}/REP 0{$order->orderId}</a></td>
+{*        <td class="column-created"><strong>{$order->created|date:'j. n. Y'}</strong> - {$order->created|date:'G:i'}</td>*}
+        <td class="column-created"><strong>{$order->created|date:'j. n. Y'}</strong></td>
+        <td class="column-time">{$order->created|date:'G:i'}</td>
+        <td class="column-created">{$order->mesic}</td>
+        <td class="column-customer"><a n:href="Dashboard:detail $order->orderId">{$order->name} {$order->surname}</a></td>
+        <td class="">{$order->contactCity}</td>
+        <td class="column-phone">{$order->phone}</td>
+        <td class="column-email">{$order->email}</td>
+        <td class="column-product">
+            {if $order->product === 'one'}
+{*                1*}
+                1 měsíc / {$productPrice['one']|number:0, ',', ' '},- Kč
+            {elseif $order->product === 'two'}
+{*                3*}
+                3 měsíce / {$productPrice['three']|number:0, ',', ' '},- Kč
+            {elseif $order->product === 'three'}
+{*                6*}
+                6 měsíců / {$productPrice['six']|number:0, ',', ' '},- Kč
+            {/if}
+        </td>
+        {*        <td class="column-status">{$order->status}</td>*}
+        <td class="column-status
+            {if $order->status === 0}
+                status-0
+            {elseif $order->status === 1}
+                status-1
+            {elseif $order->status === 2}
+                status-2
+            {elseif $order->status === 3}
+                status-3
+            {elseif $order->status === 4}
+                status-4
+            {/if}">
+            {if $order->status === 0}
+                Nedokončená obje.
+            {elseif $order->status === 1}
+                Objednáno a zaplaceno
+            {elseif $order->status === 2}
+                Předáno dopravci
+            {elseif $order->status === 3}
+                Doručeno zákazníkovi
+            {elseif $order->status === 4}
+                Stornováno
+            {/if}
+        </td>
+        <td class="column-edit"><a n:href="Dashboard:detail $order->orderId"><span class="material-icons">edit</span></a></td>
+        <td class="column-delete"><a n:href="delete! $order->orderId"><span class="material-icons">delete_forever</span></a></td>
+    </tr>
+    {/if}
+    </tbody>
+{*
+    <tfoot>
+    <tr>
+        <th class="column-id">Id:</th>
+        <th class="column-created">Vytvořeno:</th>
+        <th class="column-customer">Zákazník:</th>
+        <th class="column-product">Telefon:</th>
+        <th class="column-product">E-mail:</th>
+        <th class="column-product">Produkt:</th>
+        <th class="column-status">Stav:</th>
+        <th class="column-edit"></th>
+        <th class="column-delete"></th>
+    </tr>
+    </tfoot>
+*}
+</table>
+
+<script type="application/javascript">
+
+    // $(".form_datetime").datetimepicker();
+
+    $(document).ready(function () {
+        // $.fn.dataTable.moment( 'D. MM, YYYY' );
+        $('#orders').DataTable({
+            // Výchozí řazení
+            "order": [[0, 'desc']],
+            // "order": [[ 1, 'asc' ], [ 2, 'desc' ], [3, 'desc']],
+
+            // Nastavení počtu řádků
+            "pageLength": 25,
+
+            // Zobrazení selektů
+            // https://datatables.net/examples/api/multi_filter_select.html
+            initComplete: function () {
+                this.api().columns([5, 10]).every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.header()))
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="'+d+'">'+d+'</option>')
+                    });
+                });
+            },
+            // https://datatables.net/examples/advanced_init/footer_callback.html
+            // https://datatables.net/forums/discussion/55593
+            /*
+                        "footerCallback": function (row, data, start, end, display) {
+                            var api = this.api(), data;
+
+                            // Remove the formatting to get integer data for summation
+                            var intVal = function (i) {
+                                return typeof i === 'string' ?
+                                    i.replace(/[\$,]/g, '') * 1 :
+                                    typeof i === 'number' ?
+                                        i : 0;
+                            };
+
+                            // Total over all pages
+                            // Musí souhlasit s počtem sloupců, počítá se od nuly.
+                            total = api
+                                .column(7)
+                                .data()
+                                .reduce(function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0);
+
+                            // Total over this page
+                            // Musí souhlasit s počtem sloupců, počítá se od nuly.
+                            pageTotal = api
+{*.column(7, {page : 'current'})*}
+                    .data()
+                    .reduce(function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                // Update footer
+                $(api.column(5).footer()).html(
+                    pageTotal + ',- Kč (' + total + ',- Kč)'
+                );
+            }
+*/
+        });
+    });
+</script>

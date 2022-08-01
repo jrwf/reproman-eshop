@@ -1,0 +1,177 @@
+{block content}
+
+<style>
+    .page {
+        flex-direction: row;
+    }
+
+    table.table {
+        background-color: white;
+    }
+
+    table.table tr td {
+        padding-left: 0;
+        border-bottom: 1px solid #dcdcdc;
+        font-size: 14px;
+    }
+
+    table.table tr:last-child td {
+        border: none;
+    }
+
+    .status-select {
+        padding: 7px 15px;
+        font-size: 16px;
+    }
+
+    .status-button {
+        padding: 7px 15px !important;
+        margin: 0;
+    }
+
+    .button.edit-back {
+        float: right;
+        width: max-content;
+    }
+
+    .contacts {
+        display: flex;
+    }
+
+    .contacts .contact {
+        margin-right: 100px;
+    }
+
+    .title-order {
+        font-size: 20px;
+        /*margin-left: 10px;*/
+        /*display: inline-block;*/
+    }
+</style>
+
+<h1>{$order->name} {$order->surname} {if $order->status === 3}<span class="status-3 status-3-title">Objednávka byla stornována</span>{/if}</h1>
+
+<a n:href="Dashboard:default" class="button edit-back">Zpět</a>
+
+<table class="table">
+    <tr>
+        <td>Faktura:</td>
+        <td><strong>{$order['created']|date:'%y'}/REP 0{$order['orderId']}</strong></td>
+    </tr>
+    <tr>
+        <td>Objednávka číslo:</td>
+        <td><strong>{$order->orderId}</strong>.</td>
+    </tr>
+    <tr>
+        <td>Id platby (GpId):</td>
+        <td><strong>{$order->orderIdGp}</strong></td>
+    </tr>
+    <tr>
+        <td>Zákazník:</td>
+        <td>{$order->name} {$order->surname}</td>
+    </tr>
+    <tr>
+        <td>Objednávka ze dne:</td>
+        <td>{$order->created|date:'d. m. Y'}</td>
+    </tr>
+{*
+    <tr>
+        <td></td>
+        <td>{$order->orderId}.</td>
+    </tr>
+*}
+    <tr>
+        <td>Produkt:</td>
+        <td>
+            <strong>
+            {if $order->product === 'one'}
+                Balení na jeden měsíc / {$productPrice['one']|number:0, ',', ' '},- Kč
+            {elseif $order->product === 'two'}
+                Balení na tři měsíce / {$productPrice['three']|number:0, ',', ' '},- Kč
+            {elseif $order->product === 'three'}
+                Balení na šest měsíců / {$productPrice['six']|number:0, ',', ' '},- Kč
+            {/if}
+            </strong>
+        </td>
+    </tr>
+    <tr>
+        <td>Stav:</td>
+        <td>
+            {if $order->status === 0}
+                <span class="status-0">Nedokončená objednávka.</span>
+            {elseif $order->status === 1}
+                <span class="status-1">Objednáno a zaplaceno, objednávka se vyřizuje.</span>
+            {elseif $order->status === 2}
+                <span class="status-2">Předáno dopravci.</span>
+            {elseif $order->status === 3}
+                <span class="status-3">Doručeno, objednávka je vyřízená.</span>
+            {elseif $order->status === 4}
+                <span class="status-4">Storno.</span>
+            {/if}
+        </td>
+    </tr>
+    <tr>
+        <td>Kontaktní e-mail:</td>
+        <td>{$order->email}</td>
+    </tr>
+    <tr>
+        <td>Telefon:</td>
+        <td>{$order->phone}</td>
+    </tr>
+    <tr>
+        <td>Poznámka:</td>
+        <td>{$order->note}</td>
+    </tr>
+    <tr>
+        <td>Faktura:</td>
+        <td><a n:href="Dashboard:invoice $orderId" class="">Tisk / stažení</a></td>
+    </tr>
+    <tr>
+        {form statusForm}
+            <td>{input status class => status-select}</td>
+            <td>{input save class => status-button}</td>
+        {/form}
+    </tr>
+</table>
+
+<div class="contacts">
+    <div class="contact">
+        <h3>Kontaktní adresa:</h3>
+        <table class="table">
+            <tr>
+                <td>Ulice:</td>
+                <td>{$order->contactStreet}</td>
+            </tr>
+            <tr>
+                <td>Město:</td>
+                <td>{$order->contactCity}</td>
+            </tr>
+            <tr>
+                <td>PSČ:</td>
+                <td>{$order->contactPsc}</td>
+            </tr>
+        </table>
+    </div>
+
+    {if $order->billingStreet || $order->billingCity}
+    <div class="contact">
+        <h3>Fakturační adresa:</h3>
+        <table class="table">
+            <tr>
+                <td>Ulice:</td>
+                <td>{$order->billingStreet}</td>
+            </tr>
+            <tr>
+                <td>Město:</td>
+                <td>{$order->billingCity}</td>
+            </tr>
+            <tr>
+                <td>PSČ:</td>
+                <td>{$order->billingPsc}</td>
+            </tr>
+        </table>
+    </div>
+    {/if}
+
+</div>
+

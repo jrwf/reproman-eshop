@@ -1,0 +1,53 @@
+{
+    "name": "pixidos/gpwebpay-core",
+    "license": [
+        "BSD-3-Clause",
+        "GPL-2.0",
+        "GPL-3.0"
+    ],
+    "type": "library",
+    "description": "GPWepPay core php library for http api GPWebPay service",
+    "keywords": [
+        "gp",
+        "gp webpay",
+        "webpay",
+        "pay",
+        "checkout",
+        "payment"
+    ],
+    "homepage": "https://github.com/pixidos",
+    "authors": [
+        {
+            "name": "Ondra Votava",
+            "email": "ondra@votava.dev"
+        }
+    ],
+    "support": {
+        "email": "ondra@votava.dev",
+        "issues": "https://github.com/Pixidos/gpwebpay-core/issues"
+    },
+    "require": {
+        "php": "~7.2 || ~8.0",
+        "ext-openssl": "*",
+        "grifart/enum": "^0.2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5.0",
+        "phpstan/phpstan-phpunit": "^0.12",
+        "pixidos/coding-standards": "1.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pixidos\\GPWebPay\\": "src/"
+        },
+        "files": [
+            "src/validators.php",
+            "src/stubs.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pixidos\\GPWebPay\\Tests\\": "tests/"
+        }
+    }
+}

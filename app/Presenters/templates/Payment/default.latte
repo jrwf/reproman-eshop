@@ -1,0 +1,196 @@
+{block title}Reproman - platba za objednávku{/block}
+{block description}{/block}
+{block keywords}{/block}
+
+{block h1}Proč REPROMAN®?{/block}
+
+{block content}
+
+
+<style>
+    table.table tr td {
+        padding: 5px 0 5px 5px;
+    }
+
+    .eshop-summary-person {
+        margin-bottom: 40px;
+    }
+
+    .eshop-summary-product-none {
+        color: red;
+        font-weight: bold;
+    }
+
+    .table .price-result {
+        margin-top: 50px;
+    }
+
+    .table .price-result td {
+        font-size: 16px;
+        font-weight: normal !important;
+    }
+
+    .table .price-result tr td:first-child {
+        text-align: right;
+    }
+
+    .table .price-result tr td:last-child {
+        text-align: right;
+        color: var(--color-brown);
+        font-weight: bold !important;
+    }
+
+    .table .price-result .price-result-line td {
+        border-top: 1px solid var(--color-pig-dark);
+    }
+
+</style>
+
+<div class="eshop-summary">
+
+    <div class="eshop-summary-block eshop-summary-product">
+        <h3>Vybraný produkt:</h3>
+        <table class="table">
+            <tr>
+                <td>
+                    {if $summary->product === 'one'}
+                        <p>Balení na jeden měsíc.</p>
+                        <img src="{$basePath}/images/1-baleni-small.jpg" title="" alt=""/>
+                        {*                        <p class="summary-price">Cena za balení: {$productPrice['one']},- Kč</p>*}
+                        {*                        <p n:if="$deliveryPrice">Cena za dopravu: <strong>{$deliveryPrice}</strong>,- Kč</p>*}
+                        <table class="price-result">
+                            <tr>
+                                <td>Cena za balení:</td>
+                                <td>{$productPrice['one']},- Kč</td>
+                            </tr>
+                            <tr>
+                                <td>Cena za dopravu:</td>
+                                <td>{$deliveryPrice},- Kč</td>
+                            </tr>
+                            <tr class="price-result-line">
+                                <td>Celkem:</td>
+                                <td><strong>{$productPrice['one'] + $deliveryPrice},- Kč</strong></td>
+                            </tr>
+                        </table>
+                    {elseif $summary->product === 'two'}
+                        <p>Balení na tři měsíce.</p>
+                        <p>Doprava zdarma.</p>
+                        <img src="{$basePath}/images/3-baleni-small.jpg" title="" alt=""/>
+                        <p class="summary-price">{$productPrice['three']|number:0, '', ' '},- Kč</p>
+                    {elseif $summary->product === 'three'}
+                        <p>Balení na šest měsíců.</p>
+                        <p>Doprava zdarma.</p>
+                        <img src="{$basePath}/images/6-baleni-small.jpg" title="" alt=""/>
+                        <p class="summary-price">{$productPrice['six']|number:0, '', ' '},- Kč</p>
+                    {elseif $summary->product === null}
+                        <p class="eshop-summary-product-none">Nemáte vybraný produkt.</p>
+                    {/if}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="eshop-summary-block ">
+        <div class="eshop-summary-person">
+            <h3>Osobní údaje:</h3>
+            <table class="table">
+                <tr>
+                    <td>Jméno:</td>
+                    <td>{$summary->name}</td>
+                </tr>
+                <tr>
+                    <td>Příjmení:</td>
+                    <td>{$summary->surname}</td>
+                </tr>
+                <tr>
+                    <td>Telefon:</td>
+                    <td>{$summary->phone}</td>
+                </tr>
+                <tr>
+                    <td>E-mail:</td>
+                    <td>{$summary->email}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="eshop-summary-contact-address">
+            <h3>Kontaktní adresa:</h3>
+            <table class="table">
+                <tr>
+                    <td>Ulice:</td>
+                    <td>{$summary->contactStreet}</td>
+                </tr>
+                <tr>
+                    <td>Město:</td>
+                    <td>{$summary->contactCity}</td>
+                </tr>
+                <tr>
+                    <td>PSČ:</td>
+                    <td>{$summary->contactPsc}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="eshop-summary-billing-address">
+            {if $summary->billingStreet}
+                <h3>Fakturační adresa:</h3>
+                <table class="table">
+                    <tr>
+                        <td>Ulice:</td>
+                        <td>{$summary->billingStreet}</td>
+                    </tr>
+                    <tr>
+                        <td>Město:</td>
+                        <td>{$summary->billingCity}</td>
+                    </tr>
+                    <tr>
+                        <td>PSČ:</td>
+                        <td>{$summary->billingPsc}</td>
+                    </tr>
+                </table>
+            {/if}
+        </div>
+    </div>
+
+    <div class="eshop-summary-block">
+        {if $summary->delivery === 'place'}
+            <h3>Doručení na výdejní místo:</h3>
+        {else}
+            <h3>Doručení na adresu:</h3>
+        {/if}
+        <table class="table">
+            {if $summary->delivery === 'place'}
+                <tr n:if="$summary->packetaPlace">
+                    <td colspan="2">{$summary->packetaPlace}</td>
+                </tr>
+            {elseif $summary->delivery === 'address'}
+                <tr>
+                    <td>Ulice:</td>
+                    <td>{$summary->contactStreet}</td>
+                </tr>
+                <tr>
+                    <td>Město:</td>
+                    <td>{$summary->contactCity}</td>
+                </tr>
+                <tr>
+                    <td>PSČ:</td>
+                    <td>{$summary->contactPsc}</td>
+                </tr>
+            {/if}
+        </table>
+    </div>
+
+    <div class="eshop-summary-block buttons">
+        {var $attrs = array(class => 'btn btn-primary button order-pay')}
+        <a n:href="Eshop:default" class="button order-edit">Zpět</a>
+{*        <a n:href="Eshop:confirm" class="button order-pay" style="">Zaplatit</a>*}
+        <img src="{$basePath}/images/gpwebpay.jpg" title="" alt=""
+             style="max-width: 200px; margin-top: 40px; margin-bottom: 20px" />
+        {control webPayButton $attrs, 'Zaplatit'}
+    </div>
+
+</div>
+
+
+
+
+

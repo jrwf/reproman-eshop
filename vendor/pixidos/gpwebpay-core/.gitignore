@@ -1,0 +1,8 @@
+vendor/
+.phpcs-cache
+coverage.xml
+/tests/_reports/
+.idea/
+gpwebpay-core.iml
+/docs/_build
+/.phpunit.result.cache

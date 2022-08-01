@@ -1,0 +1,4 @@
+/test/config.json
+.idea
+/vendor/
+/composer.lock

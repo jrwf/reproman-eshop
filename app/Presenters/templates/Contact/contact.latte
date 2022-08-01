@@ -1,0 +1,53 @@
+{block title}Contact{/block}
+{block description}Nejaky popis{/block}
+{block keywords}klicova slova{/block}
+{block h1}Contact{/block}
+
+{block content}
+
+<div class="contact-images"></div>
+
+<div class="main-sides-blocks contact">
+    <div class="main-blocks address-open">
+        <div class="address">
+            <h3>ZM – TECH s.r.o.</h3>
+            <p><strong>PharmDr. Zuzana Kostovská</strong><br/>
+                U Lomu 638<br/>
+                760 01 Zlín</p>
+
+            <p><strong>Telefon:</strong> +420 577 012 877<br/>
+                <strong>E-mail:</strong> reproman@zm-tech.cz</p>
+        </div>
+        <div class="open">
+            <h3>Opening hours:</h3>
+            <p>
+                <strong>Monday:</strong> 7:30 - 17:00<br/>
+                <strong>Tuesday:</strong> 7:30 - 17:00<br/>
+                <strong>Wednesday:</strong> 7:30 - 17:00<br/>
+                <strong>Thursday:</strong> 7:30 - 17:00<br/>
+                <strong>Friday:</strong> 7:30 - 16:00
+            </p>
+        </div>
+    </div>
+    <div class="main-blocks">
+        {*        {control contactForm}*}
+        {form contactForm}
+            <div class="form-item">
+                {input name placeholder => 'Your name'}
+            </div>
+            <div class="form-item">
+                {input phone placeholder => 'Phone'}
+            </div>
+            <div class="form-item">
+                {input email placeholder => 'E-mail'}
+            </div>
+            <div class="form-item">
+                {input message placeholder => 'Text'}
+            </div>
+            <div class="form-item">
+                {input save}
+            </div>
+        {/form}
+    </div>
+</div>
+

@@ -1,0 +1,46 @@
+{
+    "name": "grifart/enum",
+    "description": "Provides bullet proof enums with behaviours.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jan Kuchař",
+            "email": "honza.kuchar@grifart.cz"
+        }
+    ],
+
+    "scripts": {
+        "verify": [
+            "@phpstan",
+            "@test"
+        ],
+        "phpstan": "vendor/bin/phpstan analyze -l 7 -c phpstan.neon --error-format compact --no-interaction --ansi --no-progress -- src",
+        "test": "vendor/bin/tester tests --colors 1"
+    },
+
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Grifart\\Enum\\": "src"
+        },
+        "classmap": [
+            "src/exceptions.php"
+        ]
+    },
+
+    "require-dev": {
+        "nette/tester": "^2.1.0",
+        "phpstan/phpstan": "^0.10.7",
+        "phpstan/phpstan-strict-rules": "^0.10.1",
+        "grifart/phpstan-oneline": "^0.2.0"
+    },
+    "autoload-dev": {
+        "files": [
+            "src/exceptions.php"
+        ]
+    }
+    
+}

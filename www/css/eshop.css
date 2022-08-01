@@ -1,0 +1,104 @@
+.result-view {
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+}
+
+.product-radio {
+    height: max-content;
+}
+
+.table.product-radio {
+    background-color: white;
+}
+
+.form-block {
+}
+
+.form-block table {
+    width: 49%;
+    height: fit-content;
+}
+
+table.table td label {
+    width: 100px;
+}
+
+table.table td.input-checkbox label,
+table.table td.input-checkbox input {
+    float: left;
+}
+
+table.table td.input-checkbox label input {
+    width: auto;
+    margin-right: 10px;
+    position: relative;
+    top: 2px;
+}
+
+table.table td.input-checkbox label {
+    text-align: left;
+    width: 300px;
+    padding: 0;
+}
+
+table.table td p.class-error {
+    color: var(--color-red);
+    font-weight: bold;
+    margin: 0;
+    line-height: 150%;
+}
+
+.packeta-item {
+    /*margin-top: 60px;*/
+    /*margin-bottom: 60px;*/
+}
+
+.packeta-item h3 {
+    font-weight: normal;
+}
+
+.packeta-item-img-button {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.packeta-item img {
+    width: 100%;
+    max-width: 150px;
+    margin-right: 25px;
+}
+
+.packeta-button {
+    width: max-content !important;
+    padding: 10px 25px;
+    margin: 0;
+    background-color: var(--color-red);
+    color: white;
+}
+
+.packeta-button:hover {
+    background-color: var(--color-red-dark);
+    cursor: pointer;
+}
+
+#packeta-to-address {
+    display: none;
+}
+
+#packeta-to-address.packeta-display-yes {
+    display: block;
+}
+
+#packeta-to-dispensing-place-point {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#packeta-to-dispensing-place-point.packeta-display-yes {
+    display: block;
+}
+
+#delivery-address p {
+    font-size: 20px;
+}

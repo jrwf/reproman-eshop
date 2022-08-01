@@ -1,0 +1,42 @@
+{block title}Poradíme Vám{/block}
+{block description}Nejaky popis{/block}
+{block keywords}klicova slova{/block}
+{block h1}Poradíme Vám{/block}
+
+{block content}
+
+<style>
+    input[type='email'],
+    input[type='text'] {
+        width: calc(100% - 20px);
+    }
+</style>
+
+<div class="main-teaser">
+    <p><strong>Naši odborníci Vám zodpoví veškeré dotazy z oblasti mužské neplodnosti, případně Vám poradí s
+            konkrétním problémem. Vyplňte formulář níže a klikněte na odeslat. Váš dotaz bude udržen v plné
+            důvěrnosti.</strong>
+    </p>
+</div>
+
+<div class="main-sides-blocks">
+    <div class="main-blocks">
+        <h2>Komu je přípravek určen?</h2>
+        <ul>
+            <li>Mužům, kteří s partnerkou touží zplodit potomka, avšak jejich plodnost je zhoršená nebo snížená.</li>
+            <li>Mužům, kteří chtějí zlepšit nebo udržet svůj sexuální život.</li>
+            <li>Mužům, kteří chtějí zvýšit svou pohlavní touhu směřující k dosažení slasti.</li>
+        </ul>
+    </div>
+    <div class="main-blocks">
+        {*        {control adviceForm}*}
+        {form adviceForm}
+            <div class="form-item">{input name placeholder: 'Vaše jméno'}</div>
+            <div class="form-item">{input email placeholder: 'E-mail'}</div>
+            <div class="form-item">{input question rows => 10}</div>
+            <div class="form-item">
+                {input save}
+            </div>
+        {/form}
+    </div>
+</div>

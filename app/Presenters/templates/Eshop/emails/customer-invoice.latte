@@ -1,0 +1,317 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <title>Objednávka byla předána dopravci</title>
+    <style>
+        p {
+            font-size: 17px;
+            line-height: 150%;
+        }
+
+        table {
+            border-spacing: 1px;
+            margin: 0;
+        }
+
+        table td {
+            background-color: white;
+            padding: 5px;
+            vertical-align: top;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+{block content}
+<p style="font-size: 16px; margin-bottom: 0; text-align: right; width: 100%"><strong>Faktura č.:</strong>
+    {$variable['created']|date:'%y'}/REP 0{$variable['orderId']}
+</p>
+
+<div style="border: 1px solid silver">
+        <table class="" style="width: 100%;">
+            <tr>
+                <td style="padding: 0 5px 0 0; vertical-align: top; border-right: 1px solid silver;">
+                    <table class="">
+                        <tr>
+                            <td><strong>Dodavatel:</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {* TODO - upravit cestu k obrazku *}
+                                <img src="https://reproman.cz/images/logo-email.png" alt="Reproman" title="Reproman"
+                                     style="display: inline-block"/>
+                            </td>
+                            <td style="vertical-align: top; line-height: 200%">
+                                <strong style="display: block; line-height: 200%">ZM - TECH s.r.o.<br/>
+                                    Grohova 117/21<br/>
+                                    60200 Brno</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; line-height: 200%">Lékárna Tomášov<br/>
+                                U Lomu 638<br/>
+                                760 01 Zlín
+                            </td>
+                            <td style="vertical-align: top; line-height: 200%"><strong>IČ:</strong> 25551868<br/>
+                                <strong>DIČ:</strong> CZ25551868<br/>
+                                <strong>Telefon:</strong> 577 012 877<br/>
+                                <strong>E-mail:</strong> reproman@zm-tech.cz
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class=""
+                           style="border: 4px solid #505050; margin-top: 15px; margin-bottom: 5px; width: 100%">
+                        <tr>
+                            <td><strong>Banka:</strong></td>
+                            <td colspan="3">Česká spořitelna CZK</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SWIFT:</strong></td>
+                            <td colspan="3">GIBACZPX</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IBAN:</strong></td>
+                            <td colspan="3">CZ77 0800 0000 0000 0584 1052</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Číslo účtu:</strong></td>
+                            <td>5841052</td>
+                            <td><strong>Kód banky:</strong></td>
+                            <td>0800</td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="padding: 0 0 0 5px; vertical-align: bottom">
+                    <table class="">
+                        <tr>
+                            <td><strong>Variabilní symbol:</strong></td>
+                            <td>{$variable['orderId']}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Konstantní symbol:</strong></td>
+                            <td>0008</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Objednávka č.: </strong></td>
+                            <td>{$variable['created']|date:'%y'}/REP 0{$variable['orderId']}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ze dne:</strong></td>
+                            <td>{$variable['created']|date:'j. n. Y'}</td>
+                        </tr>
+                    </table>
+
+                    <table class=""
+                           style="border: 4px solid #505050; margin-top: 15px; margin-bottom: 5px; width: 100%">
+                        <tr>
+                            <td><strong>Odběratel:</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Jméno:</strong></td>
+                            <td>{$variable['name']} {$variable['surname']}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adresa:</strong></td>
+                            <td>{$variable['contactStreet']}, {$variable['contactCity']}, {$variable['contactPsc']}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>E-mail:</strong></td>
+                            <td>{$variable['email']}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Telefon:</strong></td>
+                            <td>{$variable['phone']}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IČ:</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>DIČ:</strong></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+</div>
+
+
+<div style="border-left: 1px solid silver; border-right: 1px solid silver; border-bottom: 1px solid silver; width: 100%">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 50%"><strong>Datum vystavení:</strong></td>
+                <td>{$variable['created']|date:'%d. %m. %Y'}</td>
+            </tr>
+            <tr>
+                <td style="width: 50%"><strong>Datum splatnosti:</strong></td>
+                <td>{$variable['created']|date:'%d. %m. %Y'}</td>
+            </tr>
+            <tr>
+                <td style="width: 50%"><strong>Datum uskutečnění plnění:</strong></td>
+                <td>{$variable['created']|date:'%d. %m. %Y'}</td>
+            </tr>
+            <tr>
+                <td style="width: 50%"><strong>Forma úhrady:</strong></td>
+                <td>Platební kartou v eshopu</td>
+            </tr>
+        </table>
+</div>
+
+
+<div style="border-left: 1px solid silver; border-right: 1px solid silver; border-bottom: 1px solid silver">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 50%">Fakturujeme Vám zboží dle objednávky
+                    č.: {$variable['created']|date:'%y'}/REP 0{$variable['orderId']}</td>
+                <td>ze dne: {$variable['created']|date:'j. n. Y'}</td>
+            </tr>
+        </table>
+</div>
+
+
+<div style="border-left: 1px solid silver; border-right: 1px solid silver; border-bottom: 1px solid silver; width: 100%">
+        <table style="width: 100%;">
+            <tr>
+                <td><strong>Označení dodávky:</strong></td>
+                <td><strong>Množství:</strong></td>
+                <td style="text-align: right"><strong>J. cena</strong></td>
+                {*            <td style="text-align: right"><strong>Sleva:</strong></td>*}
+                <td style="text-align: right"><strong>Cena:</strong></td>
+                <td style="text-align: right"><strong>%DPH:</strong></td>
+                <td style="text-align: right"><strong>DPH:</strong></td>
+                <td style="text-align: right"><strong>Celkem:</strong></td>
+            </tr>
+            <tr>
+                <td>Položka REPROMAN</td>
+                <td>
+                    {$item['numberOfPieces']} Ks
+                </td>
+                <td style="text-align: right">
+                    {$item['priceForOnePieceWithoutVat']|number:2, '.', ' '} Kč
+                </td>
+                {*            Sleva*}
+{*            <td style="text-align: right"></td>*}
+                <td style="text-align: right">{$item['priceForAllPackWithoutVat']|number:2, '.', ' '} Kč</td>
+                <td style="text-align: right">{$item['vatPrice']}%</td>
+{*            DPH*}
+                <td style="text-align: right">{$item['vatForAllPack']|number:2, '.', ' '} Kč</td>
+{*            Cena celkem*}
+                <td style="text-align: right">{$item['priceFinal']|number:2, '.', ' '} Kč</td>
+            </tr>
+            {if $item['numberOfPieces'] === 1}
+                <tr>
+                    <td>Doprava (Zásilkovna)</td>
+                    <td>1 ks</td>
+                    <td style="text-align: right">{$packetaPrice['packetaPriceFinalWithoutVat']|number:2, '.', ' '} Kč
+                    </td>
+                    {*            <td style="text-align: right"></td>*}
+                    <td style="text-align: right">{$packetaPrice['packetaPriceFinalWithoutVat']|number:2, '.', ' '} Kč
+                    </td>
+                    <td style="text-align: right">{$packetaPrice['packetaVat']}%</td>
+                    <td style="text-align: right">{$packetaPrice['packetaPriceVat']|number:2, '.', ' '} Kč</td>
+                    <td style="text-align: right">{$packetaPrice['packetaPriceFinal']|number:2, '.', ' '} Kč</td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid silver" colspan="3">Součet položek:</td>
+                    {*            <td style="border-top: 1px solid silver"></td>*}
+                    <td style="border-top: 1px solid silver; text-align: right">
+                        {if $item['numberOfPieces'] === 1}
+                            {var $prices = $packetaPrice['packetaPriceFinalWithoutVat'] + $item['priceForAllPackWithoutVat']}
+                            {$prices|number:2, '.', ' '} Kč
+                        {else}
+                            {$item['priceForAllPackWithoutVat']|number:2, '.', ' '} Kč
+                        {/if}
+                    </td>
+                    <td style="border-top: 1px solid silver; text-align: right"></td>
+                    <td style="border-top: 1px solid silver; text-align: right">
+                        {if $item['numberOfPieces'] === 1}
+                            {var $vats = $item['vatForAllPack'] + $packetaPrice['packetaPriceVat']}
+                            {$vats|number:2, '.', ' '} Kč
+                        {else}
+                            {$item['vatForAllPack']|number:2, '.', ' '} Kč
+                        {/if}
+                    </td>
+                    <td style="border-top: 1px solid silver; text-align: right">
+{*                        <strong>*}
+                            {var $priceWidthVat = $item['priceFinal'] + $packetaPrice['packetaPriceFinal']}
+                            {$priceWidthVat|number:2, '.', ' '} Kč
+{*                        </strong>*}
+                    </td>
+                </tr>
+            {/if}
+            <tr>
+                <td colspan="6"><strong>CELKEM K ÚHRADĚ</strong></td>
+                <td style="text-align: right">
+                    <strong>
+                        {if $item['numberOfPieces'] === 1}
+                            {var $all = $item['priceFinal'] + $packetaPrice['packetaPriceFinal']}
+                            {$all|number:2, '.', ' '} Kč
+                        {else}
+                            {$item['priceFinal']|number:2, '.', ' '} Kč
+                        {/if}
+                    </strong>
+                </td>
+            </tr>
+        </table>
+</div>
+
+{*
+<div style="border-left: 1px solid silver; border-right: 1px solid silver; border-bottom: 1px solid silver;">
+    <table>
+        <tr>
+            <td colspan="3">Součet položek:</td>
+            <td>k</td>
+            <td>k</td>
+            <td>k</td>
+            <td style="text-align: right">479.00</td>
+            <td style="text-align: right">l</td>
+            <td style="text-align: right">76.65</td>
+            <td style="text-align: right"><strong>479.00</strong></td>
+        </tr>
+        <tr>
+            <td colspan="7"><strong>CELKEM K ÚHRADĚ</strong></td>
+            <td>k</td>
+            <td>k</td>
+            <td style="text-align: right"><strong>479.00</strong></td>
+        </tr>
+    </table>
+</div>
+*}
+
+<div style="border-left: 1px solid silver; border-right: 1px solid silver; border-bottom: 1px solid silver">
+    <table>
+        <tr>
+            <td rowspan="2"><strong>Vystavil:</strong><br/><br/>Lékárna Tomášov<br/>reproman@zm-tech.cz</td>
+            <td></td>
+            {* TODO - Nastavit cestu na server *}
+            <td rowspan="3"><img src="https://reproman.cz/images/razitko.jpg" alt="Reproman" title="Reproman"
+                                 style="display: inline-block"/></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Obchodní rejstřík KS Brno, oddíl C, vložka 32858.</td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<div style="border-left: 1px solid silver; border-right: 1px solid silver; border-bottom: 1px solid silver">
+    <table>
+        <tr>
+            <td><strong>NEPLAŤTE - uhrazeno online při provedení objednávky.</strong></td>
+        </tr>
+        <tr>
+            <td>Vystaveno v eshopu www.reproman.cz</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
